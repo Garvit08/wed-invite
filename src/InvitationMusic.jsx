@@ -2,8 +2,8 @@ import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { SpeakerHighIcon } from '@phosphor-icons/react/dist/csr/SpeakerHigh';
 import { SpeakerSlashIcon } from '@phosphor-icons/react/dist/csr/SpeakerSlash';
 
-// Audio excerpt from the user-selected Instagram reel DdMF_C_Jozg.
-export const invitationMusic = { src: 'audio/parvati-reel.m4a', title: 'Parvati — Sadhu Tiwari' };
+// User-selected Ranjha flute cover: https://www.youtube.com/watch?v=N9OOJjfTjM8
+export const invitationMusic = { src: 'audio/ranjha-flute.m4a', title: 'Ranjha — flute cover by Divyansh Shrivastava' };
 
 export function InvitationMusic({ ref }) {
   const audio = useRef(null);
