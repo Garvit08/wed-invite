@@ -6,6 +6,8 @@ The couple selected **Crimson**. The guest page now shows the burgundy/gold invi
 
 All six events are immersive illustrated sections: each background blends into Crimson behind the event title, time, and calendar link. Haldi uses the approved five-second personalized animation (~1.1 MB), silently playing in view with a discreet pause/play button and a static poster for reduced-motion visitors. The other five use personalized WebP illustrations while their videos are pending. Baarat features Garvit alone. `src/event-films.js` defines the media and casting; `src/EventFilm.jsx` manages background playback. Original reference photos are excluded from public assets.
 
+Background music is the couple-selected [Ranjha flute cover by Divyansh Shrivastava](https://www.youtube.com/watch?v=N9OOJjfTjM8), optimized as a local AAC file with silent padding removed and gentle fades. It starts on the seal gesture, loops, and can be paused from the header.
+
 See [VIDEO-ILLUSTRATIONS.md](VIDEO-ILLUSTRATIONS.md) for the free-tool shortlist, scene briefs, casting rules, and production workflow.
 
 ## Archived exploration: three interactive first drafts
