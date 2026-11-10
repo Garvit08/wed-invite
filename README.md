@@ -1,0 +1,84 @@
+# Garvit & Yogita — Wedding invitation
+
+## Current version: Crimson Heirloom
+
+The couple selected **Crimson**. The guest page now shows the burgundy/gold invitation directly, without the draft selector. Celebrations span **3–4 December 2026**. Haldi and DJ Night are grouped on 3 December; the four wedding-day events remain on 4 December. The map identifies the 4 December wedding venue only; pre-wedding locations have not been supplied.
+
+Each event displays its details first. `src/event-films.js` defines its future video, poster, and cast; `src/EventFilm.jsx` provides an inline, muted, looped, viewport-aware player with controls and reduced-motion support. No player is shown until an approved local clip is configured. Personalized couple/family videos are **not generated yet** because photos and the generation backend are still pending. Baarat's scene is groom-only.
+
+See [VIDEO-ILLUSTRATIONS.md](VIDEO-ILLUSTRATIONS.md) for the free-tool shortlist, scene briefs, casting rules, and production workflow.
+
+## Archived exploration: three interactive first drafts
+
+The initial exploration included these directions; their artwork is retained for reference, while guest URLs now resolve to Crimson:
+
+- `?draft=1`: **Crimson Heirloom**, burgundy embossed envelope and a gold wax seal. The two image-backed panels open outward.
+- `?draft=2`: **Royal Vows**, palace arch, calligraphy, floral lake and swans, with a cinematic zoom reveal.
+- `?draft=3`: **Ivory Blossom**, floral illustrated doors, Ganesha emblem, and a tasselled medallion with hinged-door reveal.
+
+Use **Replay** to restart the Crimson opening. All artwork/fonts are local. Reduced-motion users receive an immediate reveal. The combined calendar now contains all six events, with six individual event calendars.
+
+The draft toolbar has been removed. The archived source images are `design/drafts/option-1.png` through `option-3.png`. Original reel screenshots are in `design/inspiration/`. The palace/mandap images are illustrative, not photographs of the actual venue.
+
+All drafts also include a gentle rose-petal/jasmine drift and a short flower shower during opening. The pause button hides and pauses the flower effects; reduced-motion users receive no particle animation. Particles use local raster artwork and cannot intercept clicks. Personalized bride-and-groom illustrations/animation are pending the couple's photographs; no couple video is included yet.
+
+An English, responsive wedding invitation for **4 December 2026**, at **Infinity Resorts & Farms, Alwar, Rajasthan**. Built with React and Vite; no server, credentials, or paid services required at runtime.
+
+## Included
+
+- Floral ivory, forest green, and gold invitation with Rajasthan-inspired artwork.
+- Animated envelope reveal, live countdown, and responsive celebration schedule.
+- Six individual calendar downloads, plus a combined celebration calendar. All start times preserve IST.
+- Venue search in Google Maps, invitation-link copying with a manual-copy fallback, keyboard focus states, and reduced-motion support.
+- Local fonts and optimized WebP illustrations; no external font or image requests.
+
+## Schedule
+
+| Event | Date and time (IST) |
+| --- | --- |
+| Phulo ki Bahar (Haldi) | 3 December 2026 · 11:00 AM |
+| DJ Night | 3 December 2026 · 7:00 PM |
+| Departure of Baarat | 4 December 2026 · 11:15 AM |
+| Lunch | 4 December 2026 · 1:15 PM |
+| Phere | 4 December 2026 · 3:15 PM |
+| Reception | 4 December 2026 · 7:15 PM |
+
+No end times or Baarat departure point were provided, so calendar entries do not invent them. The map action searches the supplied venue name; it does not assert a verified pin. The courtyard is illustrative artwork, not a photograph of the venue. Countdown targets midnight at the start of the wedding day in IST.
+
+## Local preview
+
+```sh
+npm ci
+npm run dev
+```
+
+## Publish on GitHub Pages
+
+1. Create a GitHub repository and put the **contents of this folder** at its root, including `.github/workflows/deploy.yml`, `package.json`, and `package-lock.json`. Do not upload `node_modules` or `dist`.
+2. Push to `main`.
+3. In the repository, select **Settings → Pages → Source → GitHub Actions**.
+4. The included workflow builds and publishes `dist/client`. Open its deployment URL after the action succeeds. If the first workflow ran before Pages was enabled, rerun it from Actions.
+
+`base: './'` keeps assets relative so the site can work under a repository path as well as a custom domain. This workflow follows [Vite's GitHub Pages deployment guidance](https://vite.dev/guide/static-deploy#github-pages), with this project's static output directory substituted.
+
+No repository has been created or published by the local build. To use an existing repository with this project in a subfolder, update the workflow's working directory, lockfile cache path, and artifact path accordingly.
+
+## Edit details
+
+- `src/wedding.js`: date, schedule, venue, and map destination.
+- `src/App.jsx`: invitation wording and cover names/date.
+- `index.html`: browser title and link-preview descriptions.
+- `src/styles.css`: colors, layout, typography, and motion.
+- `design/reference.png`: selected visual reference.
+
+If you change the wedding date, update both the cover/metadata and the event timestamps. No RSVP form or backend is configured. Add a real form destination before collecting responses.
+
+## Validation and build
+
+```sh
+npm run test:invitation
+npm run build
+npm run preview -- --host 127.0.0.1 --port 4173
+```
+
+The tests verify timezone conversion, all six event times across both days, calendar IDs, escaping, UTF-8 line folding, date grouping, and groom-only Baarat casting. The production website is in `dist/client`. Extra Worker output from the bundled starter is unused by GitHub Pages.
