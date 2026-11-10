@@ -1,0 +1,288 @@
+@import '@fontsource/pinyon-script/latin-400.css';
+
+.draft-app {
+  --draft-bar: 64px;
+  --paper: #fff7e9;
+  --green: #6d1925;
+  --gold: #a47a3a;
+  --muted: #74664e;
+  min-height: 100svh;
+  color: #493823;
+  background: var(--paper);
+}
+
+.draft-switcher {
+  min-height: var(--draft-bar);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 8px max(22px, calc((100vw - 1120px) / 2));
+  background: #fffaf1;
+  color: #4b3928;
+  border-bottom: 1px solid #ae8c5440;
+}
+
+.draft-switcher-label {display:flex;align-items:center;gap:14px;flex-shrink:0}
+.draft-switcher-label>span {font: 27px var(--serif)}
+.draft-switcher-label p {font-size:9px;line-height:1.6;letter-spacing:.3px;color:#88755b}
+.draft-options {display:flex;align-self:stretch;gap:8px}
+.draft-options button {display:flex;align-items:center;gap:8px;padding:8px 14px;background:transparent;border-bottom:2px solid transparent;font-size:12px;color:#7e6d59}
+.draft-options button:hover {color:#6d1925}
+.draft-options button.selected {border-color:#792a32;color:#792a32}
+.draft-option-number {font:18px var(--serif)}
+.draft-replay {display:flex;gap:7px;align-items:center;background:transparent;padding:10px 0;font-size:11px}
+.draft-motion-controls {display:flex;align-items:center;gap:12px;flex-shrink:0}
+.flower-pause-button {display:grid;place-items:center;min-width:30px;min-height:44px;background:transparent;padding:7px}
+.flowers {position:fixed;inset:var(--draft-bar) 0 0;z-index:12;pointer-events:none;overflow:hidden;contain:strict}
+.ambient-flowers,.flower-burst {position:absolute;inset:0;overflow:hidden}
+.flower-particle {position:absolute;top:-65px;left:var(--flower-left);width:var(--flower-size);height:auto;opacity:0;object-fit:contain;animation:flower-fall var(--flower-duration,1.5s) linear var(--flower-delay,0s) infinite;will-change:transform}
+.flower-burst .flower-particle {animation-name:flower-shower;animation-duration:1.45s;animation-iteration-count:1;animation-fill-mode:both}
+.flowers-paused .flowers {visibility:hidden}
+.flowers-paused .flower-particle {animation-play-state:paused}
+@keyframes flower-fall {
+  0% {opacity:0;transform:translate3d(0,-25px,0) rotate(0)}
+  8% {opacity:.67}
+  50% {opacity:.62;transform:translate3d(calc(var(--flower-drift) * -.55),48svh,0) rotate(160deg)}
+  92% {opacity:.5}
+  100% {opacity:0;transform:translate3d(var(--flower-drift),calc(100svh + 90px),0) rotate(var(--flower-turn))}
+}
+@keyframes flower-shower {
+  0% {opacity:0;transform:translate3d(0,-15px,0) rotate(-20deg) scale(.8)}
+  12% {opacity:.95}
+  80% {opacity:.85}
+  100% {opacity:0;transform:translate3d(var(--flower-drift),calc(100svh + 90px),0) rotate(var(--flower-turn)) scale(1.05)}
+}
+.draft-app main {scroll-margin-top:var(--draft-bar)}
+html {scroll-padding-top:0}
+.draft-app #our-day,.draft-app #venue {scroll-margin-top:calc(var(--draft-bar) + 80px)}
+
+.draft-cover {
+  width: min(100%, 490px, calc((100svh - var(--draft-bar)) / 2));
+  aspect-ratio: 1 / 2;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  isolation: isolate;
+  container-type: inline-size;
+  text-align: center;
+  perspective: 1400px;
+  background: #f5e3c2;
+}
+
+.draft-artwork,.draft-inner-scene {position:absolute;inset:0;pointer-events:none}
+.draft-inner-scene {background-size:cover;background-position:center;opacity:0;transition:opacity 1s}
+.gate-leaf {position:absolute;top:0;bottom:0;width:50.1%;background-size:200% 100%;background-repeat:no-repeat;backface-visibility:hidden;transition:transform 1.5s cubic-bezier(.22,.65,.22,1),filter 1.5s;will-change:transform}
+.gate-leaf-left {left:0;background-position:left center;transform-origin:left center}
+.gate-leaf-right {right:0;background-position:right center;transform-origin:right center}
+.royal-scene {width:100%;height:100%;object-fit:cover;transition:transform 1.6s cubic-bezier(.22,.65,.22,1),filter 1.6s}
+.draft-front-copy {position:absolute;inset:0;pointer-events:none;transition:opacity .6s,transform 1.2s}
+.draft-front-copy p,.draft-front-copy time {position:absolute;width:100%;left:0;line-height:1.5}
+.draft-names {position:absolute;left:5%;width:90%;margin:0;font-family:var(--serif);font-weight:400;font-size:20cqw;line-height:.9;letter-spacing:-.7cqw}
+.draft-names>span {display:block}
+.draft-names .draft-amp {color:#bc8e4a;font-style:italic;letter-spacing:0}
+.draft-family-name,.draft-family-intro,.draft-date {text-transform:uppercase;letter-spacing:.55cqw;font-family:var(--serif)}
+.draft-family-intro {font-size:2.6cqw}
+.draft-family-name {font-size:3cqw}
+.draft-date {display:block;position:absolute;font-size:3.35cqw}
+.draft-divider {position:absolute;left:36%;width:28%;height:auto}
+.draft-venue {position:absolute;left:10%;width:80%}
+.draft-venue p {position:static;font:4.1cqw/1.4 var(--serif)}
+.draft-venue>span {display:block;font:2.5cqw/1.8 var(--serif);letter-spacing:.65cqw}
+.draft-open-button {position:absolute;z-index:3;background:transparent;transition:transform .35s,opacity .6s,filter .4s;padding:0}
+.draft-open-button:not(:disabled):hover {transform:translateY(-3px);filter:brightness(1.08)}
+.draft-open-button:focus-visible {outline:2px solid #c99d59;outline-offset:7px}
+.draft-open-button span {display:flex;align-items:center;justify-content:center;gap:10px}
+.draft-seal-button {left:25%;width:50%;display:flex;align-items:center;flex-direction:column}
+.draft-seal {width:80%;height:auto;object-fit:contain;filter:drop-shadow(0 4px 5px #2e130c38);transition:transform .55s}
+.draft-seal-button span {margin-top:4cqw;max-width:90%;font:4.4cqw/1.25 var(--serif)}
+.draft-ganesha {position:absolute;left:39%;top:7%;width:22%;height:11%;object-fit:contain}
+.draft-revealed {position:absolute;inset:35% 10% auto;pointer-events:none;animation:reveal .7s both;color:#6d1925;text-shadow:0 1px 2px #ffefd8}
+.draft-revealed p {font:3cqw var(--serif);text-transform:uppercase;letter-spacing:.45cqw}
+.draft-revealed>span {display:block;font:15cqw 'Pinyon Script',cursive;margin-top:5cqw}
+.gate-opening .draft-front-copy,.gate-opened .draft-front-copy {opacity:0;transform:translateY(-8px)}
+.gate-opening .draft-seal-button .draft-seal {transform:scale(1.15) rotate(-12deg)}
+.gate-opening .draft-open-button {opacity:0;transition-delay:.2s}
+.gate-opening .gate-leaf-left,.gate-opened .gate-leaf-left {transform:rotateY(-105deg);filter:brightness(.7)}
+.gate-opening .gate-leaf-right,.gate-opened .gate-leaf-right {transform:rotateY(105deg);filter:brightness(.7)}
+.gate-opening .draft-inner-scene,.gate-opened .draft-inner-scene {opacity:1}
+.gate-opening .royal-scene,.gate-opened .royal-scene {transform:scale(1.22);filter:brightness(1.12)}
+.gate-opened .draft-open-button {top:58%;left:20%;width:60%;color:#6d1925}
+.gate-opened .draft-seal {display:none}
+.gate-opened .draft-open-button>span {border-bottom:1px solid #a47a3a;padding:5px;font:4cqw var(--serif)}
+
+/* Draft 01: tactile burgundy envelope with a wax-seal interaction. */
+.cover-crimson {color:#ffedcc;background:#4b0c13}
+.cover-crimson .draft-names {top:13%;display:flex;justify-content:center;align-items:baseline;gap:1.3cqw;font-size:13.4cqw;letter-spacing:-.8cqw}
+.cover-crimson .draft-amp {font-family:'Pinyon Script',cursive;font-size:16cqw;font-weight:400;color:#f6d5a4}
+.cover-crimson .draft-family-name {top:21.2%;font-size:3cqw;letter-spacing:.95cqw}
+.cover-crimson .draft-date {top:27%;font-size:3.25cqw;letter-spacing:.8cqw}
+.cover-crimson .draft-divider {top:24.3%;filter:brightness(1.4)}
+.cover-crimson .draft-seal-button {top:41%}
+.cover-crimson .draft-seal-button>span {font-style:italic;max-width:62%;margin-top:5cqw;font-size:4.4cqw}
+.cover-crimson .draft-venue {bottom:9%}
+.cover-crimson .draft-venue p {font-size:3cqw;text-transform:uppercase;letter-spacing:.6cqw}
+.cover-crimson .draft-venue>span {font-size:2.7cqw;margin-top:1cqw}
+
+/* Draft 02: a palace arch, calligraphy, and a slow cinematic reveal. */
+.cover-royal {color:#731727}
+.cover-royal .draft-family-intro {top:23.3%;font-size:2.6cqw;letter-spacing:.55cqw;color:#7e512b}
+.cover-royal .draft-names {top:26%;font-family:'Pinyon Script',cursive;font-size:22cqw;letter-spacing:0;height:23%}
+.cover-royal .draft-names>span:not(.sr-only) {position:absolute;left:0;right:0}
+.cover-royal .draft-names>span:first-child {top:0}
+.cover-royal .draft-names>.draft-amp {top:13cqw;font-family:'Pinyon Script',cursive;font-size:16cqw;line-height:1}
+.cover-royal .draft-names>span:nth-child(3) {top:23cqw}
+.cover-royal .draft-family-name {top:49.5%;letter-spacing:.8cqw;font-size:2.9cqw;color:#80532d}
+.cover-royal .draft-date {top:53.4%;font-size:3.65cqw;letter-spacing:.6cqw}
+.cover-royal .draft-divider {top:55.8%}
+.cover-royal .draft-venue {top:57.5%}
+.cover-royal .draft-venue p {font-size:4cqw;color:#754a27}
+.cover-royal .draft-venue span {font-size:2.6cqw;color:#754a27}
+.draft-royal-button {left:25%;width:50%;top:65.3%;min-height:5%;padding:2cqw 3cqw;background:#6f091a;border:1px solid #c7a25b;border-radius:50px;box-shadow:0 0 0 2px #f4d18e,0 3px 8px #6a301b35;color:#fff2db}
+.draft-royal-button>span {font:3.8cqw var(--serif);white-space:nowrap}
+.draft-royal-button svg {width:3.5cqw}
+.draft-royal-caption {position:absolute;width:100%;top:72%;font:italic 3cqw var(--serif);color:#754a27;letter-spacing:.2cqw}
+.gate-opening .draft-royal-caption,.gate-opened .draft-royal-caption {opacity:0}
+.cover-royal.gate-opened .draft-open-button {top:61%;background:#6f091a;color:#fff2db}
+.cover-royal.gate-opened .draft-open-button>span {border:0}
+
+/* Draft 03: ivory illustrated doors, Ganesha, and a tasselled medallion. */
+.cover-ivory {color:#50380f}
+.cover-ivory .draft-family-intro {top:20%;font-size:2.8cqw;width:64%;left:18%;letter-spacing:.65cqw;line-height:1.5}
+.cover-ivory .draft-names {top:24.5%;font-size:20.5cqw;height:20%}
+.cover-ivory .draft-names>span:not(.sr-only) {position:absolute;left:0;right:0}
+.cover-ivory .draft-names>span:first-child {top:0}
+.cover-ivory .draft-names>.draft-amp {top:10.7cqw;font-size:16cqw}
+.cover-ivory .draft-names>span:nth-child(3) {top:19.2cqw}
+.cover-ivory .draft-family-name {top:45.1%;font-size:3.1cqw;letter-spacing:.7cqw}
+.cover-ivory .draft-date {top:49.8%;font-size:3.4cqw;letter-spacing:.5cqw}
+.cover-ivory .draft-divider {top:47.2%}
+.cover-ivory .draft-seal-button {top:54%;width:42%;left:29%}
+.cover-ivory .draft-seal {width:100%;max-height:40cqw;object-fit:contain}
+.cover-ivory .draft-seal-button>span {font-size:3.1cqw;text-transform:uppercase;letter-spacing:.45cqw;white-space:nowrap;margin-top:3cqw}
+.cover-ivory .draft-venue {bottom:10.4%}
+.cover-ivory .draft-venue p {font-size:3.7cqw}
+.cover-ivory .draft-venue span {font-size:2.5cqw;text-transform:uppercase;letter-spacing:.6cqw}
+
+/* The same real wedding information, expressed in three visual systems. */
+.draft-app .celebration {scroll-margin-top:var(--draft-bar);animation:none}
+.draft-app .invitation-nav {top:var(--draft-bar);background:var(--paper);color:inherit}
+.draft-app .welcome h2 {font-size:clamp(42px,5.5vw,68px)}
+.draft-app .welcome h2 em {font-family:'Pinyon Script',cursive;font-size:1.12em;line-height:1.15;color:var(--green)}
+.draft-app .signature {font-family:'Pinyon Script',cursive;font-size:42px}
+.draft-app .countdown-number {font-size:52px}
+.draft-app .button-green {background:var(--green);color:var(--paper);border:1px solid var(--gold)}
+.draft-app .button-green:hover {filter:brightness(1.15)}
+.ceremony-panorama {max-width:1120px;margin:0 auto;overflow:hidden}
+.ceremony-panorama img {display:block;width:100%;height:auto;aspect-ratio:3/1;object-fit:cover}
+.draft-app .schedule {background:#f2e5d0}
+.draft-app .section-heading>p:last-child {font-family:var(--serif);font-size:19px;font-style:italic}
+.draft-app .event-list {max-width:760px;column-gap:70px;row-gap:50px}
+.draft-app .event {padding-top:30px}
+.draft-app .event-index {font-size:24px;color:var(--gold)}
+.draft-app .event-time {font-size:43px;color:var(--green)}
+.draft-app .event h3 {font-size:31px}
+.event-title {font-family:var(--serif);font-size:31px;font-weight:400;line-height:1.2;margin:14px 0 0}
+.theme-crimson .event-title {margin-top:0}
+.event-day {margin-top:65px}
+.event-day-heading {max-width:650px;margin:0 auto}
+.event-day-heading>p {font-family:var(--serif);font-style:italic;font-size:26px;color:var(--gold);line-height:1.4}
+.event-day-heading h3 {font-family:'Manrope',sans-serif;font-size:11px;font-weight:400;line-height:1.8;letter-spacing:2px;text-transform:uppercase;margin-top:10px}
+.draft-app .event-day .event-list {margin-top:22px}
+.event-film {grid-column:1/-1;width:100%;margin:26px 0 0}
+.event-film video {width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:contain;background:#25090e;border:1px solid #c9975d55}
+.event-film figcaption {font-size:11px;line-height:1.8;color:var(--muted);margin-top:10px}
+.wedding-brand {text-decoration:none}
+.draft-app .event p {font-size:13px}
+.draft-app .venue-art {height:470px;background-size:cover;background-position:center bottom}
+.draft-app .venue-content h2 em {font-family:'Pinyon Script',cursive;font-size:1.2em}
+.draft-app .invitation-footer {color:inherit}
+.draft-app .footer-names {font-family:'Pinyon Script',cursive;font-size:64px}
+.draft-app .share-dialog {background:#fff7e9;color:#493823}
+.draft-app .share-dialog .button-green {color:#fff7e9;background:#6d1925}
+
+.theme-crimson {--paper:#330b13;--green:#e5bc79;--gold:#d0a569;--muted:#d2b8a0;color:#fae8ca;background:#330b13}
+.theme-crimson .welcome {background:#330b13}
+.theme-crimson .welcome h2 em {color:#e5bc79}
+.theme-crimson .button-green {color:#330b13}
+.theme-crimson .schedule {background:#43121a}
+.theme-crimson .event {border-color:#c9975d55}
+.theme-crimson .invitation-nav {border-color:#c9975d55}
+.theme-crimson .invitation-nav a:hover {color:#e5bc79}
+.theme-crimson h2 em {color:#e5bc79}
+.theme-crimson .text-link {border-color:#c9975d80}
+.theme-crimson .venue-content h3 {color:#fae8ca}
+.theme-crimson .invitation-footer {border-color:#c9975d55}
+.theme-crimson .event-list {grid-template-columns:1fr;max-width:650px}
+.theme-crimson .event-content {display:grid;grid-template-columns:125px 1fr;column-gap:25px;align-items:center}
+.theme-crimson .event-time {grid-row:1/4}
+.theme-crimson .event h3 {margin-top:0}
+.theme-crimson .event p {max-width:none}
+.theme-crimson .event .text-link {justify-self:start}
+
+.theme-royal .welcome,.theme-royal .schedule {max-width:1120px}
+.theme-royal .schedule {background:#f2e3c8}
+.theme-royal .event-index {font-size:30px}
+.theme-royal .event h3 {font-style:italic;font-size:34px}
+.theme-royal .invitation-footer {background:#eddfc7;max-width:none}
+.theme-ivory {--paper:#fffaf1;--green:#695325;--gold:#ac853f;--muted:#7c725e;color:#53452d}
+.theme-ivory .schedule {background:#f4efdf}
+.theme-ivory .event {border-color:#ab8d5345}
+.theme-ivory .event-content {border-left:1px solid #b08d5345;padding-left:23px}
+.theme-ivory .venue-art {border-radius:180px 180px 6px 6px}
+.theme-ivory .footer-names {font-family:var(--serif);font-size:55px}
+
+@media(prefers-reduced-motion:no-preference) {
+  .draft-app [data-reveal] {opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.3,1)}
+  .draft-app [data-reveal].in-view {opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:650px) {
+  .draft-app {--draft-bar:58px}
+  .draft-switcher {padding:6px 12px;gap:8px;min-height:58px}
+  .draft-switcher-label {display:flex;gap:10px}
+  .draft-switcher-label>span {font-size:23px}
+  .draft-switcher-label p {font-size:9px}
+  .draft-options {flex:1;justify-content:space-between;gap:0}
+  .draft-options button {padding:10px 7px;gap:5px;font-size:11px;min-height:44px}
+  .draft-option-number {font-size:17px}
+  .draft-replay {font-size:10px;gap:4px;min-height:44px}
+  .draft-replay svg {width:14px}
+  .draft-motion-controls {gap:1px}
+  .flower-pause-button {min-width:25px;padding:5px}
+  .ambient-flowers .flower-particle:nth-child(n+9) {display:none}
+  .flower-burst .flower-particle:nth-child(n+17) {display:none}
+  .draft-app .section-spacing {padding:65px 26px}
+  .draft-app .welcome h2 {font-size:42px;letter-spacing:-1.2px}
+  .draft-app .welcome h2 em {font-size:48px}
+  .draft-app .countdown {gap:18px}
+  .draft-app .countdown-number {font-size:42px}
+  .draft-app .event-list {column-gap:0;row-gap:30px;max-width:350px}
+  .draft-app .event {gap:15px;padding-top:26px}
+  .draft-app .event-index {font-size:20px;width:24px}
+  .draft-app .event h3 {font-size:30px}
+  .draft-app .event-time {font-size:38px}
+  .draft-app .ceremony-panorama img {aspect-ratio:2/1}
+  .draft-app .venue-art {height:350px}
+  .draft-app .footer-names {font-size:50px}
+  .theme-crimson .event-content {grid-template-columns:1fr}
+  .theme-crimson .event-time {grid-row:auto}
+  .theme-crimson .event h3 {margin-top:12px}
+  .theme-crimson .event-title {margin-top:12px;font-size:29px}
+  .event-day {margin-top:45px}
+  .event-day-heading>p {font-size:25px}
+  .event-day-heading h3 {font-size:10px;letter-spacing:1.3px}
+  .theme-ivory .event-content {padding-left:15px}
+  .draft-app .invitation-nav {padding-inline:24px}
+  .draft-app .invitation-nav>div {gap:22px}
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .flowers,.flower-pause-button {display:none}
+  .draft-app [data-reveal] {opacity:1;transform:none}
+  .gate-leaf,.royal-scene,.draft-front-copy,.draft-open-button {transition:none}
+}
+.music-toggle {display:grid;place-items:center;min-width:44px;min-height:44px;padding:7px;background:transparent}
