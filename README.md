@@ -4,7 +4,7 @@
 
 The couple selected **Crimson**. The guest page now shows the burgundy/gold invitation directly, without the draft selector. Celebrations span **3–4 December 2026**. Haldi and DJ Night are grouped on 3 December; the four wedding-day events remain on 4 December. The map identifies the 4 December wedding venue only; pre-wedding locations have not been supplied.
 
-Each event displays its details first. `src/event-films.js` defines its future video, poster, and cast; `src/EventFilm.jsx` provides an inline, muted, looped, viewport-aware player with controls and reduced-motion support. No player is shown until an approved local clip is configured. Personalized couple/family videos are **not generated yet** because photos and the generation backend are still pending. Baarat's scene is groom-only.
+All six events are immersive illustrated sections: each background blends into Crimson behind the event title, time, and calendar link. Haldi uses the approved five-second personalized animation (~1.1 MB), silently playing in view with a discreet pause/play button and a static poster for reduced-motion visitors. The other five use personalized WebP illustrations while their videos are pending. Baarat features Garvit alone. `src/event-films.js` defines the media and casting; `src/EventFilm.jsx` manages background playback. Original reference photos are excluded from public assets.
 
 See [VIDEO-ILLUSTRATIONS.md](VIDEO-ILLUSTRATIONS.md) for the free-tool shortlist, scene briefs, casting rules, and production workflow.
 
@@ -20,7 +20,7 @@ Use **Replay** to restart the Crimson opening. All artwork/fonts are local. Redu
 
 The draft toolbar has been removed. The archived source images are `design/drafts/option-1.png` through `option-3.png`. Original reel screenshots are in `design/inspiration/`. The palace/mandap images are illustrative, not photographs of the actual venue.
 
-All drafts also include a gentle rose-petal/jasmine drift and a short flower shower during opening. The pause button hides and pauses the flower effects; reduced-motion users receive no particle animation. Particles use local raster artwork and cannot intercept clicks. Personalized bride-and-groom illustrations/animation are pending the couple's photographs; no couple video is included yet.
+The invitation also includes a gentle rose-petal/jasmine drift and a short flower shower during opening. The pause button hides and pauses the flower effects; reduced-motion users receive no particle animation. Particles use local raster artwork and cannot intercept clicks.
 
 An English, responsive wedding invitation for **4 December 2026**, at **Infinity Resorts & Farms, Alwar, Rajasthan**. Built with React and Vite; no server, credentials, or paid services required at runtime.
 
