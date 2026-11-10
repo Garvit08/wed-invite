@@ -7,7 +7,7 @@ export const wedding = {
 };
 export const events = [
   {id: 'haldi', name: 'Phulo ki Bahar (Haldi)', time: '11:00', period: 'AM', start: '2026-12-03T11:00:00+05:30', copy: 'Golden hues, flower showers, and a little Haldi happiness.', location: ''},
-  {id: 'dj-night', name: 'DJ Night', time: '7:00', period: 'PM', start: '2026-12-03T19:00:00+05:30', copy: 'An evening of dancing and celebrating with our favourite people.', location: ''},
+  {id: 'chaak-bhaat', name: 'Chaak-Bhaat (Mayra)', time: '3:15', period: 'PM', start: '2026-12-03T15:15:00+05:30', copy: 'A cherished family tradition, filled with blessings and love.', location: ''},
   {id: 'baarat', name: 'Departure of Baarat', time: '11:15', period: 'AM', start: '2026-12-04T11:15:00+05:30', copy: 'With music, laughter, and hearts full of joy.', location: ''},
   {id: 'lunch', name: 'Lunch', time: '1:15', period: 'PM', start: '2026-12-04T13:15:00+05:30', copy: 'A little conversation. A feast to share.', location: wedding.venue},
   {id: 'phere', name: 'Phere', time: '3:15', period: 'PM', start: '2026-12-04T15:15:00+05:30', copy: 'Seven sacred steps into our forever.', location: wedding.venue},
