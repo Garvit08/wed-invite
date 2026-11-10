@@ -2,7 +2,7 @@
 
 ## Current version: Crimson Heirloom
 
-The couple selected **Crimson**. The guest page now shows the burgundy/gold invitation directly, without the draft selector. Celebrations span **3–4 December 2026**. Haldi and DJ Night are grouped on 3 December; the four wedding-day events remain on 4 December. The map identifies the 4 December wedding venue only; pre-wedding locations have not been supplied.
+The couple selected **Crimson**. The guest page now shows the burgundy/gold invitation directly, without the draft selector. Celebrations span **3–4 December 2026**. Haldi and Chaak-Bhaat (Mayra) are grouped on 3 December; the four wedding-day events remain on 4 December. The map identifies the 4 December wedding venue only; pre-wedding locations have not been supplied.
 
 All six events are immersive illustrated sections: each background blends into Crimson behind the event title, time, and calendar link. Haldi uses the approved five-second personalized animation (~1.1 MB), silently playing in view with a discreet pause/play button and a static poster for reduced-motion visitors. The other five use personalized WebP illustrations while their videos are pending. Baarat features Garvit alone. `src/event-films.js` defines the media and casting; `src/EventFilm.jsx` manages background playback. Original reference photos are excluded from public assets.
 
@@ -39,7 +39,7 @@ An English, responsive wedding invitation for **4 December 2026**, at **Infinity
 | Event | Date and time (IST) |
 | --- | --- |
 | Phulo ki Bahar (Haldi) | 3 December 2026 · 11:00 AM |
-| DJ Night | 3 December 2026 · 7:00 PM |
+| Chaak-Bhaat (Mayra) | 3 December 2026 · 3:15 PM |
 | Departure of Baarat | 4 December 2026 · 11:15 AM |
 | Lunch | 4 December 2026 · 1:15 PM |
 | Phere | 4 December 2026 · 3:15 PM |
