@@ -192,9 +192,12 @@ html {scroll-padding-top:0}
 .event-day-heading>p {font-family:var(--serif);font-style:italic;font-size:26px;color:var(--gold);line-height:1.4}
 .event-day-heading h3 {font-family:'Manrope',sans-serif;font-size:11px;font-weight:400;line-height:1.8;letter-spacing:2px;text-transform:uppercase;margin-top:10px}
 .draft-app .event-day .event-list {margin-top:22px}
-.event-film {grid-column:1/-1;width:100%;margin:26px 0 0}
-.event-film video {width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:contain;background:#25090e;border:1px solid #c9975d55}
-.event-film figcaption {font-size:11px;line-height:1.8;color:var(--muted);margin-top:10px}
+.event-film {grid-column:1/-1;width:100%;min-width:0;margin:30px 0 8px}
+.event-film-frame {padding:6px;border:1px solid #c9975d90;border-radius:5px;background:linear-gradient(135deg,#d4ac6940,#25090e 40%,#d4ac6920);box-shadow:0 16px 38px #16030740}
+.event-film video {width:100%;height:auto;display:block;aspect-ratio:3/2;object-fit:contain;background:#25090e;border-radius:2px}
+.event-film video:focus-visible {outline:2px solid #e5bc79;outline-offset:4px}
+.event-film figcaption {display:flex;justify-content:center;align-items:center;gap:12px;text-align:center;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.5;color:var(--muted);margin:15px auto 0;max-width:460px}
+.event-film-ornament {font-style:normal;color:var(--gold);font-size:18px}
 .wedding-brand {text-decoration:none}
 .draft-app .event p {font-size:13px}
 .draft-app .venue-art {height:470px;background-size:cover;background-position:center bottom}
@@ -286,3 +289,35 @@ html {scroll-padding-top:0}
   .gate-leaf,.royal-scene,.draft-front-copy,.draft-open-button {transition:none}
 }
 .music-toggle {display:grid;place-items:center;min-width:44px;min-height:44px;padding:7px;background:transparent}
+
+/* Each celebration is one illustrated scene, blending into its own details. */
+.theme-crimson .schedule {padding-inline:0;padding-bottom:60px;background:#330b13}
+.theme-crimson .schedule>.section-heading {padding-inline:26px}
+.theme-crimson .event-day {margin-top:60px}
+.theme-crimson .event-day-heading {padding-inline:24px}
+.theme-crimson .event-day .scene-list {display:block;max-width:none;margin:32px 0 0}
+.theme-crimson .event-scene {position:relative;isolation:isolate;display:flex;justify-content:center;align-items:flex-end;min-height:760px;padding:470px 50px 60px;margin:0;gap:0;border:0;overflow:hidden;background:#330b13}
+.event-scene-art {position:absolute;inset:0 0 auto;z-index:-1;width:100%;aspect-ratio:3/2;mask-image:linear-gradient(to bottom,#000 0%,#000 56%,transparent 100%)}
+.event-scene-art img,.event-scene-art video {display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.theme-crimson .scene-details {display:flex;flex-direction:column;align-items:center;gap:0;max-width:650px;text-align:center;text-shadow:0 2px 18px #22050c}
+.theme-crimson .scene-details .scene-chapter {font:10px 'Manrope',sans-serif;letter-spacing:3px;text-transform:uppercase;color:#e5bc79;margin:0 0 17px}
+.theme-crimson .scene-details .event-title {font-family:var(--serif);font-size:58px;font-weight:400;line-height:1.06;letter-spacing:-1px;margin:0 0 19px;text-wrap:balance;color:#fae8ca}
+.theme-crimson .scene-details .event-time {font-family:var(--serif);font-size:34px;grid-row:auto;color:#e5bc79;line-height:1.2}
+.theme-crimson .scene-details .event-time span {font-size:11px}
+.theme-crimson .scene-details .scene-copy {font-size:13px;line-height:1.9;max-width:380px;margin:17px 0 0;color:#e5cbb3}
+.theme-crimson .scene-details .text-link {margin-top:22px;justify-self:auto;min-height:44px;font-size:11px;color:#fae8ca}
+.scene-motion-toggle {position:absolute;z-index:2;top:22px;right:24px;display:flex;align-items:center;gap:7px;min-height:44px;padding:10px 15px;border:1px solid #e5bc7960;border-radius:30px;background:#330b13bc;color:#fae8ca;font:10px 'Manrope',sans-serif;backdrop-filter:blur(10px)}
+.scene-motion-toggle:hover {background:#330b13}
+.scene-motion-toggle:focus-visible {outline:2px solid #e5bc79;outline-offset:4px}
+.event-scene + .event-scene::before {content:'';position:absolute;top:0;left:25%;right:25%;height:1px;background:linear-gradient(90deg,transparent,#c9975d75,transparent);z-index:1}
+@media(max-width:650px) {
+  .theme-crimson .event-day {margin-top:40px}
+  .theme-crimson .event-day .scene-list {margin-top:25px}
+  .theme-crimson .event-scene {min-height:560px;padding:clamp(205px,57vw,360px) 25px 46px}
+  .event-scene-art {mask-image:linear-gradient(to bottom,#000 0%,#000 60%,transparent 100%)}
+  .theme-crimson .scene-details .scene-chapter {font-size:9px;letter-spacing:2.4px;margin-bottom:13px}
+  .theme-crimson .scene-details .event-title {font-size:43px;margin-bottom:17px;letter-spacing:-.7px}
+  .theme-crimson .scene-details .event-time {font-size:30px}
+  .theme-crimson .scene-details .scene-copy {font-size:12px;max-width:290px;margin-top:15px}
+  .scene-motion-toggle {top:12px;right:12px;padding:10px 12px}
+}

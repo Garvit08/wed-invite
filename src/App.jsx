@@ -144,9 +144,9 @@ export function App() {
           <div className="section-heading"><p className="eyebrow">03 &amp; 04 December 2026</p><h2 id="schedule-heading">A celebration to <em>remember.</em></h2><p>Six moments. One beautiful beginning.</p></div>
           {eventDays.map(day => <section className="event-day" key={day.date} aria-labelledby={`day-${day.date}`}>
             <div className="event-day-heading"><p>{day.title}</p><h3 id={`day-${day.date}`}><time dateTime={day.date}>{day.label}</time></h3></div>
-            <ol className="event-list">{day.events.map(event => <li className="event" key={event.id} data-reveal>
-              <span className="event-index" aria-hidden="true">0{events.findIndex(item => item.id === event.id) + 1}</span>
-              <div className="event-content"><time className="event-time" dateTime={event.start}>{event.time}<span>{event.period}</span></time><h4 className="event-title">{event.name}</h4><p>{event.copy}</p><CalendarLink event={event}>Add to calendar<span className="sr-only">: {event.name}</span></CalendarLink><EventFilm event={event}/></div>
+            <ol className="event-list scene-list">{day.events.map(event => <li className={`event event-scene scene-${event.id}`} key={event.id}>
+              <EventFilm event={event}/>
+              <div className="event-content scene-details" data-reveal><p className="scene-chapter">Celebration 0{events.findIndex(item => item.id === event.id) + 1}</p><h4 className="event-title">{event.name}</h4><time className="event-time" dateTime={event.start}>{event.time}<span>{event.period}</span></time><p className="scene-copy">{event.copy}</p><CalendarLink event={event}>Save this moment<span className="sr-only">: {event.name}</span></CalendarLink></div>
             </li>)}</ol>
           </section>)}
           <p className="timezone-note">All timings are in India Standard Time (IST).</p>

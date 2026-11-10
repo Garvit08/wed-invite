@@ -1,27 +1,34 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { PauseIcon } from '@phosphor-icons/react/dist/csr/Pause';
+import { PlayIcon } from '@phosphor-icons/react/dist/csr/Play';
 import { eventFilms } from './event-films.js';
-
-function FilmPlayer({media, title}) {
-  const video = useRef(null);
-  useEffect(() => {
-    const player = video.current;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.isIntersecting && !document.hidden) player.play().catch(() => {});
-        else player.pause();
-      }
-    }, {threshold:.4});
-    observer.observe(player);
-    const pauseWhenHidden = () => { if (document.hidden) player.pause(); };
-    document.addEventListener('visibilitychange', pauseWhenHidden);
-    return () => { observer.disconnect(); player.pause(); document.removeEventListener('visibilitychange', pauseWhenHidden); };
-  }, []);
-  const localAsset = path => path ? `${import.meta.env.BASE_URL}${path}` : undefined;
-  return <figure className="event-film"><video ref={video} src={localAsset(media.src)} poster={localAsset(media.poster)} muted loop playsInline controls preload="none" aria-label={`${title}: ${media.caption}`}/><figcaption>{media.caption}</figcaption></figure>;
-}
 
 export function EventFilm({event}) {
   const media = eventFilms[event.id];
-  return media?.src ? <FilmPlayer media={media} title={event.name}/> : null;
+  const video = useRef(null);
+  const [paused, setPaused] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  useEffect(() => {
+    const player = video.current;
+    if (!player) return;
+    let visible = false;
+    const updatePlayback = () => {
+      if (visible && !paused && !document.hidden) player.play().catch(() => {});
+      else player.pause();
+    };
+    const observer = new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      updatePlayback();
+    }, {threshold:.15});
+    observer.observe(player);
+    document.addEventListener('visibilitychange', updatePlayback);
+    return () => { observer.disconnect(); player.pause(); document.removeEventListener('visibilitychange', updatePlayback); };
+  }, [paused]);
+  const localAsset = path => path ? `${import.meta.env.BASE_URL}${path}` : undefined;
+  if (!media?.poster) return null;
+  return <>
+    <div className="event-scene-art">
+      {media.src ? <video ref={video} src={localAsset(media.src)} poster={localAsset(media.poster)} width="810" height="540" muted loop playsInline preload="none" aria-label={`${event.name}: ${media.caption}`}/> : <img src={localAsset(media.poster)} alt={media.caption} width="1200" height="800" loading="lazy"/>}
+    </div>
+    {media.src && <button className="scene-motion-toggle" onClick={() => setPaused(value => !value)} aria-label={`${paused ? 'Play' : 'Pause'} ${event.name} animation`} aria-pressed={paused}>{paused ? <PlayIcon size={15} weight="fill" aria-hidden="true"/> : <PauseIcon size={15} weight="fill" aria-hidden="true"/>}<span>{paused ? 'Play scene' : 'Pause scene'}</span></button>}
+  </>;
 }
