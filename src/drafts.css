@@ -103,6 +103,9 @@ html {scroll-padding-top:0}
 .draft-revealed {position:absolute;inset:35% 10% auto;pointer-events:none;animation:reveal .7s both;color:#6d1925;text-shadow:0 1px 2px #ffefd8}
 .draft-revealed p {font:3cqw var(--serif);text-transform:uppercase;letter-spacing:.45cqw}
 .draft-revealed>span {display:block;font:15cqw 'Pinyon Script',cursive;margin-top:5cqw}
+.draft-view-button {position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;pointer-events:auto;min-height:44px;max-width:100%;margin-top:6cqw;padding:8px 4px;border-bottom:1px solid #a47a3a;background:transparent;color:inherit;font:4cqw/1.4 var(--serif)}
+.draft-view-button:focus-visible {outline:2px solid #a47a3a;outline-offset:5px}
+.draft-view-button:hover {color:#49111c}
 .gate-opening .draft-front-copy,.gate-opened .draft-front-copy {opacity:0;transform:translateY(-8px)}
 .gate-opening .draft-seal-button .draft-seal {transform:scale(1.15) rotate(-12deg)}
 .gate-opening .draft-open-button {opacity:0;transition-delay:.2s}

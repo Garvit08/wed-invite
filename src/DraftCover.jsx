@@ -43,11 +43,11 @@ export function DraftCover({draft, opening, opened, onOpen, onView}) {
       <img className="draft-divider" src={`${import.meta.env.BASE_URL}assets/divider.webp`} alt=""/>
       <div className="draft-venue"><p>Infinity Resorts &amp; Farms</p><span>Alwar, Rajasthan</span></div>
     </div>
-    <button className={`draft-open-button ${isRoyal ? 'draft-royal-button' : 'draft-seal-button'}`} onClick={opened ? onView : onOpen} disabled={opening} aria-expanded={opened} aria-controls="celebration" aria-label={opened ? 'View our celebration' : design.action}>
+    {!opened ? <button className={`draft-open-button ${isRoyal ? 'draft-royal-button' : 'draft-seal-button'}`} onClick={onOpen} disabled={opening} aria-expanded={false} aria-controls="celebration" aria-label={design.action}>
       {!isRoyal ? <img className="draft-seal" src={asset(`${draft}-seal`)} alt="" width="320" height={draft === 'ivory' ? 416 : 320}/> : null}
       <span>{opening ? design.opening : opened ? 'View our celebration' : design.action}{isRoyal ? <ArrowRightIcon size={17} weight="light" aria-hidden="true"/> : null}</span>
-    </button>
+    </button> : null}
     {isRoyal ? <p className="draft-royal-caption">A lifetime begins here</p> : null}
-    {opened ? <div className="draft-revealed"><p>A new chapter begins</p><span>Garvit &amp; Yogita</span></div> : null}
+    {opened ? <div className="draft-revealed"><p>A new chapter begins</p><span>Garvit &amp; Yogita</span><button className="draft-view-button" onClick={onView} aria-expanded={true} aria-controls="celebration">View our celebration<ArrowRightIcon size={16} weight="light" aria-hidden="true"/></button></div> : null}
   </section>;
 }
