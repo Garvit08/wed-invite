@@ -35,9 +35,9 @@ test('calendar downloads use CRLF and valid UTF-8 line folding', () => {
   assert.ok(unfolded.includes('SUMMARY:Garvit & Yogita — Departure of Baarat'));
 });
 
-test('schedule groups both days and preserves groom-only Baarat casting', () => {
+test('schedule groups both days and preserves the family event casting', () => {
   assert.deepEqual(eventDays.map(day => [day.date, day.events.length]), [['2026-12-03',2], ['2026-12-04',4]]);
-  assert.equal(eventFilms.baarat.cast, 'groom-only');
+  assert.equal(eventFilms.baarat.cast, 'groom-and-family');
   assert.equal(eventFilms.haldi.cast, 'couple-and-family');
   assert.equal(eventFilms['chaak-bhaat'].cast, 'groom-and-family');
 });
