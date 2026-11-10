@@ -4,7 +4,7 @@
 
 The couple selected **Crimson**. The guest page now shows the burgundy/gold invitation directly, without the draft selector. Celebrations span **3–4 December 2026**. Haldi and Chaak-Bhaat (Mayra) are grouped on 3 December; the four wedding-day events remain on 4 December. The map identifies the 4 December wedding venue only; pre-wedding locations have not been supplied.
 
-All six events are immersive illustrated sections: each background blends into Crimson behind the event title, time, and calendar link. Haldi uses the approved five-second personalized animation (~1.1 MB), silently playing in view with a discreet pause/play button and a static poster for reduced-motion visitors. The other five use personalized WebP illustrations while their videos are pending. Baarat features Garvit alone. `src/event-films.js` defines the media and casting; `src/EventFilm.jsx` manages background playback. Original reference photos are excluded from public assets.
+All six events are immersive illustrated sections: each background blends into Crimson behind the event title, time, and calendar link. Haldi uses the approved five-second personalized animation (~1.1 MB), silently playing in view with a discreet pause/play button and a static poster for reduced-motion visitors. The other five use personalized WebP illustrations while their videos are pending. Chaak-Bhaat features Garvit receiving tilak from Bade Mama, with Chote Mama seated on his other side. Baarat features Garvit dancing with Papa, Mom, Tauji and Taiji; Mom and Taiji wear coordinated lehengas. `src/event-films.js` defines the media and casting; `src/EventFilm.jsx` manages background playback. Original reference photos are excluded from public assets.
 
 Background music is the couple-selected [Ranjha flute cover by Divyansh Shrivastava](https://www.youtube.com/watch?v=N9OOJjfTjM8), optimized as a local AAC file with silent padding removed and gentle fades. It starts on the seal gesture, loops, and can be paused from the header.
 
@@ -83,4 +83,4 @@ npm run build
 npm run preview -- --host 127.0.0.1 --port 4173
 ```
 
-The tests verify timezone conversion, all six event times across both days, calendar IDs, escaping, UTF-8 line folding, date grouping, and groom-only Baarat casting. The production website is in `dist/client`. Extra Worker output from the bundled starter is unused by GitHub Pages.
+The tests verify timezone conversion, all six event times across both days, calendar IDs, escaping, UTF-8 line folding, date grouping, and family event casting. The production website is in `dist/client`. Extra Worker output from the bundled starter is unused by GitHub Pages.
