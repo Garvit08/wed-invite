@@ -14,12 +14,12 @@ function foldLine(line) {
   return parts.join('\r\n');
 }
 export function calendarFile(events) {
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Garvit and Yogita//Wedding Invitation//EN', 'CALSCALE:GREGORIAN'];
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Yogita and Garvit//Wedding Invitation//EN', 'CALSCALE:GREGORIAN'];
   for (const event of events) {
     const start = new Date(event.start).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
     const localDate = new Intl.DateTimeFormat('en-GB', {day:'numeric', month:'long', year:'numeric', timeZone:'Asia/Kolkata'}).format(new Date(event.start));
     const dateId = event.start.slice(0,10).replace(/-/g, '');
-    lines.push('BEGIN:VEVENT', `UID:garvit-yogita-${dateId}-${event.id}@wedding-invitation`, 'DTSTAMP:20261031T000000Z', `DTSTART:${start}`, `SUMMARY:${escapeText(`Garvit & Yogita — ${event.name}`)}`, `DESCRIPTION:${escapeText(`Celebrate the wedding of Garvit Khandelwal and Yogita Khandelwal. ${event.name}: ${event.time} ${event.period} IST on ${localDate}.`)}`);
+    lines.push('BEGIN:VEVENT', `UID:yogita-garvit-${dateId}-${event.id}@wedding-invitation`, 'DTSTAMP:20261031T000000Z', `DTSTART:${start}`, `SUMMARY:${escapeText(`Yogita & Garvit — ${event.name}`)}`, `DESCRIPTION:${escapeText(`Celebrate the wedding of Yogita Khandelwal and Garvit Khandelwal. ${event.name}: ${event.time} ${event.period} IST on ${localDate}.`)}`);
     if (event.location) lines.push(`LOCATION:${escapeText(event.location)}`);
     // End times were not provided, so omit DTEND.
     lines.push('END:VEVENT');

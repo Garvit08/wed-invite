@@ -17,7 +17,7 @@ const asset = name => `${import.meta.env.BASE_URL}assets/drafts/${name}.webp`;
 
 export function DraftSwitcher({selected, onSelect, onReplay, opening, flowersPaused, onToggleFlowers, musicControl}) {
   return <header className="draft-switcher">
-    <a className="draft-switcher-label wedding-brand" href="#invitation" aria-label="Garvit and Yogita, back to invitation"><span>G &amp; Y</span><p>Garvit &amp; Yogita<br/>03–04 December 2026</p></a>
+    <a className="draft-switcher-label wedding-brand" href="#invitation" aria-label="Yogita and Garvit, back to invitation"><span>Y &amp; G</span><p>Yogita &amp; Garvit<br/>03–04 December 2026</p></a>
     <div className="draft-motion-controls">{musicControl}<button className="flower-pause-button" onClick={onToggleFlowers} aria-label={flowersPaused ? 'Resume flowers' : 'Pause flowers'} title={flowersPaused ? 'Resume flowers' : 'Pause flowers'}>{flowersPaused ? <PlayIcon size={15} aria-hidden="true"/> : <PauseIcon size={15} aria-hidden="true"/>}</button><button className="draft-replay" disabled={opening} onClick={onReplay}><ArrowClockwiseIcon size={16} aria-hidden="true"/><span>Replay</span></button></div>
   </header>;
 }
@@ -26,7 +26,7 @@ export function DraftCover({draft, opening, opened, onOpen, onView}) {
   const design = drafts.find(item => item.id === draft);
   const background = asset(`${draft}-background`);
   const isRoyal = draft === 'royal';
-  return <section className={`draft-cover cover-${draft} ${opening ? 'gate-opening' : ''} ${opened ? 'gate-opened' : ''}`} aria-label={`${design.name}: Garvit and Yogita wedding invitation`}>
+  return <section className={`draft-cover cover-${draft} ${opening ? 'gate-opening' : ''} ${opened ? 'gate-opened' : ''}`} aria-label={`${design.name}: Yogita and Garvit wedding invitation`}>
     <div className="draft-inner-scene" style={{backgroundImage:`url(${asset('royal-background')})`}} aria-hidden="true" />
     <div className="draft-artwork" aria-hidden="true">
       {isRoyal ? <img className="royal-scene" src={background} alt="" width="887" height="1774" fetchPriority="high"/> : <>
@@ -37,7 +37,7 @@ export function DraftCover({draft, opening, opened, onOpen, onView}) {
     <div className="draft-front-copy">
       {draft === 'ivory' ? <img className="draft-ganesha" src={asset('ivory-ganesha')} alt="" width="160" height="160"/> : null}
       {isRoyal || draft === 'ivory' ? <p className="draft-family-intro">Together with our families</p> : null}
-      <h1 className="draft-names"><span>Garvit</span><span className="draft-amp">&amp;</span><span>Yogita</span><span className="sr-only"> Khandelwal</span></h1>
+      <h1 className="draft-names"><span>Yogita</span><span className="draft-amp">&amp;</span><span>Garvit</span><span className="sr-only"> Khandelwal</span></h1>
       <p className="draft-family-name">Khandelwal</p>
       <time className="draft-date" dateTime="2026-12-04">04 December 2026</time>
       <img className="draft-divider" src={`${import.meta.env.BASE_URL}assets/divider.webp`} alt=""/>
@@ -48,6 +48,6 @@ export function DraftCover({draft, opening, opened, onOpen, onView}) {
       <span>{opening ? design.opening : opened ? 'View our celebration' : design.action}{isRoyal ? <ArrowRightIcon size={17} weight="light" aria-hidden="true"/> : null}</span>
     </button> : null}
     {isRoyal ? <p className="draft-royal-caption">A lifetime begins here</p> : null}
-    {opened ? <div className="draft-revealed"><p>A new chapter begins</p><span>Garvit &amp; Yogita</span><button className="draft-view-button" onClick={onView} aria-expanded={true} aria-controls="celebration">View our celebration<ArrowRightIcon size={16} weight="light" aria-hidden="true"/></button></div> : null}
+    {opened ? <div className="draft-revealed"><p>A new chapter begins</p><span>Yogita &amp; Garvit</span><button className="draft-view-button" onClick={onView} aria-expanded={true} aria-controls="celebration">View our celebration<ArrowRightIcon size={16} weight="light" aria-hidden="true"/></button></div> : null}
   </section>;
 }
