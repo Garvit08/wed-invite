@@ -97,11 +97,10 @@ export function App() {
     setOpening(true);
     openTimer.current = setTimeout(() => { setOpened(true); setOpening(false); }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1650);
   }
-  useEffect(() => {
-    if (!opened) return;
+  function viewCelebration() {
     celebration.current?.focus({preventScroll: true});
     celebration.current?.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
-  }, [opened]);
+  }
 
   async function copyInvitation() {
     const url = `${window.location.origin}${window.location.pathname}`;
@@ -128,7 +127,7 @@ export function App() {
     <FlowerSprinkles key={`flowers-${coverVersion}`} opening={opening}/>
     <a href="#invitation" className="skip-link">Skip to invitation</a>
     <main id="invitation">
-      <DraftCover key={`${draft}-${coverVersion}`} draft={draft} opening={opening} opened={opened} onOpen={openInvitation} onView={() => celebration.current?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'})}/>
+      <DraftCover key={`${draft}-${coverVersion}`} draft={draft} opening={opening} opened={opened} onOpen={openInvitation} onView={viewCelebration}/>
       <div id="celebration" className="celebration" ref={celebration} tabIndex={-1} hidden={!opened}>{opened ? <>
         <nav className="invitation-nav" aria-label="Invitation sections"><a className="nav-monogram" href="#invitation" aria-label="Back to invitation">G &amp; Y</a><div><a href="#our-day">Our day</a><a href="#venue">The venue</a><CalendarLink className="nav-calendar">Save the date</CalendarLink></div></nav>
         <section className="welcome section-spacing" aria-labelledby="welcome-heading" data-reveal>
