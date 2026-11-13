@@ -15,7 +15,7 @@ test('departure has no invented location; venue is escaped for other events', ()
   const calendar = calendarFile(events);
   const departure = calendarFile(events.filter(event => event.id === 'baarat'));
   assert.ok(!departure.includes('LOCATION:'));
-  assert.equal((calendar.match(/LOCATION:Infinity Resorts & Farms\\, Alwar\\, Rajasthan/g) || []).length, 3);
+  assert.equal((calendar.match(/LOCATION:Infinity Hotels & Resorts\\, Alwar\\, Rajasthan/g) || []).length, 3);
 });
 
 test('descriptions preserve each event date and do not invent pre-wedding locations', () => {
