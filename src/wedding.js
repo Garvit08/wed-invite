@@ -2,7 +2,7 @@
 // The Baarat departure point has not been supplied; do not invent it.
 export const wedding = {
   dayStart: '2026-12-04T00:00:00+05:30',
-  venue: 'Infinity Resorts & Farms, Alwar, Rajasthan',
+  venue: 'Infinity Hotels & Resorts, Alwar, Rajasthan',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Infinity%20Resorts%20%26%20Farms%2C%20Alwar%2C%20Rajasthan',
 };
 export const events = [
