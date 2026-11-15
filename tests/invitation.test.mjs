@@ -32,7 +32,7 @@ test('calendar downloads use CRLF and valid UTF-8 line folding', () => {
   for (const line of calendar.split('\r\n')) assert.ok(Buffer.byteLength(line, 'utf8') <= 75);
   assert.ok(!calendar.replace(/\r\n/g, '').includes('\n'));
   const unfolded = calendar.replace(/\r\n /g, '');
-  assert.ok(unfolded.includes('SUMMARY:Garvit & Yogita — Departure of Baarat'));
+  assert.ok(unfolded.includes('SUMMARY:Garvit & Yogita — Departure of Baraat'));
 });
 
 test('schedule groups both days and preserves the family event casting', () => {
