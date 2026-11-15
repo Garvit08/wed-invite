@@ -17,7 +17,7 @@ const asset = name => `${import.meta.env.BASE_URL}assets/drafts/${name}.webp`;
 
 export function DraftSwitcher({selected, onSelect, onReplay, opening, flowersPaused, onToggleFlowers, musicControl}) {
   return <header className="draft-switcher">
-    <a className="draft-switcher-label wedding-brand" href="#invitation" aria-label="Garvit and Yogita, back to invitation"><span>G &amp; Y</span><p>Garvit &amp; Yogita<br/>03–04 December 2026</p></a>
+    <a className="draft-switcher-label wedding-brand" href="#invitation" aria-label="Garvit and Yogita, back to invitation"><span>G &amp; Y</span><p>Garvit &amp; Yogita<br/><span className="header-celebration-date">03–04 December 2026</span></p></a>
     <div className="draft-motion-controls">{musicControl}<button className="flower-pause-button" onClick={onToggleFlowers} aria-label={flowersPaused ? 'Resume flowers' : 'Pause flowers'} title={flowersPaused ? 'Resume flowers' : 'Pause flowers'}>{flowersPaused ? <PlayIcon size={15} aria-hidden="true"/> : <PauseIcon size={15} aria-hidden="true"/>}</button><button className="draft-replay" disabled={opening} onClick={onReplay}><ArrowClockwiseIcon size={16} aria-hidden="true"/><span>Replay</span></button></div>
   </header>;
 }

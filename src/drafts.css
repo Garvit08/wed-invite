@@ -324,3 +324,14 @@ html {scroll-padding-top:0}
   .theme-crimson .scene-details .scene-copy {font-size:12px;max-width:290px;margin-top:15px}
   .scene-motion-toggle {top:12px;right:12px;padding:10px 12px}
 }
+
+
+/* Readable celebration dates across the groom invitation. */
+.draft-switcher-label .header-celebration-date{font-size:11px;font-weight:600;color:#63523c;letter-spacing:.2px}
+.cover-crimson .draft-date{font-size:4.3cqw;letter-spacing:.42cqw;font-weight:600}
+.cover-royal .draft-date,.cover-ivory .draft-date{font-size:4.3cqw;font-weight:600}
+@media(max-width:600px){.draft-switcher-label .header-celebration-date{font-size:10px}}
+
+
+.draft-app .section-heading>.eyebrow{font-size:13px;line-height:1.6;font-weight:400;letter-spacing:1.5px}
+
