@@ -41,7 +41,7 @@ export function DraftCover({draft, opening, opened, onOpen, onView}) {
       <p className="draft-family-name">Khandelwal</p>
       <time className="draft-date" dateTime="2026-12-04">04 December 2026</time>
       <img className="draft-divider" src={`${import.meta.env.BASE_URL}assets/divider.webp`} alt=""/>
-      <div className="draft-venue"><p>Infinity Resorts &amp; Farms</p><span>Alwar, Rajasthan</span></div>
+      <div className="draft-venue"><p>Infinity Hotels &amp; Resorts</p><span>Alwar, Rajasthan</span></div>
     </div>
     {!opened ? <button className={`draft-open-button ${isRoyal ? 'draft-royal-button' : 'draft-seal-button'}`} onClick={onOpen} disabled={opening} aria-expanded={false} aria-controls="celebration" aria-label={design.action}>
       {!isRoyal ? <img className="draft-seal" src={asset(`${draft}-seal`)} alt="" width="320" height={draft === 'ivory' ? 416 : 320}/> : null}

@@ -324,3 +324,7 @@ html {scroll-padding-top:0}
   .theme-crimson .scene-details .scene-copy {font-size:12px;max-width:290px;margin-top:15px}
   .scene-motion-toggle {top:12px;right:12px;padding:10px 12px}
 }
+
+.slow-scroll-control{position:fixed;bottom:20px;right:20px;z-index:80;padding:11px 17px;border:1px solid #d9b877;border-radius:24px;background:#330b14ed;color:#fff1d5;font:12px/1.5 'Manrope',sans-serif;box-shadow:0 3px 16px #0003;cursor:pointer;min-height:44px}.slow-scroll-control:focus-visible{outline:2px solid #fff;outline-offset:4px}
+
+

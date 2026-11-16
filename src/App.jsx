@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSlowScroll } from './useSlowScroll.js';
 import { ArrowDownIcon } from '@phosphor-icons/react/dist/csr/ArrowDown';
 import { ArrowUpRightIcon } from '@phosphor-icons/react/dist/csr/ArrowUpRight';
 import { CalendarBlankIcon } from '@phosphor-icons/react/dist/csr/CalendarBlank';
@@ -41,6 +42,10 @@ export function App() {
   const [flowersPaused, setFlowersPaused] = useState(false);
   const selectedDraftRef = useRef(draft);
   const [opened, setOpened] = useState(false);
+  const [viewed, setViewed] = useState(false);
+  const [autoScrolling, setAutoScrolling] = useState(false);
+  const stopAutoScroll = useCallback(() => setAutoScrolling(false), []);
+  useSlowScroll(autoScrolling, stopAutoScroll);
   const [opening, setOpening] = useState(false);
   const [copied, setCopied] = useState(false);
   const celebration = useRef(null);
@@ -55,6 +60,8 @@ export function App() {
     clearTimeout(openTimer.current);
     setOpening(false);
     setOpened(false);
+    setViewed(false);
+    setAutoScrolling(false);
     setCopied(false);
     setDraft(nextDraft);
     selectedDraftRef.current = nextDraft;
@@ -95,13 +102,14 @@ export function App() {
     if (opening) return;
     music.current?.start();
     setOpening(true);
-    openTimer.current = setTimeout(() => { setOpened(true); setOpening(false); }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1650);
+    openTimer.current = setTimeout(() => { setOpened(true); setOpening(false); setViewed(true); setAutoScrolling(!window.matchMedia('(prefers-reduced-motion: reduce)').matches); }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1650);
   }
-  useEffect(() => {
-    if (!opened) return;
-    celebration.current?.focus({preventScroll: true});
-    celebration.current?.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
-  }, [opened]);
+  function viewCelebration() {
+    celebration.current?.focus({preventScroll:true});
+    celebration.current?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+    setViewed(true);
+    setAutoScrolling(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
 
   async function copyInvitation() {
     const url = `${window.location.origin}${window.location.pathname}`;
@@ -125,10 +133,11 @@ export function App() {
 
   return <div className={`draft-app theme-${draft} ${flowersPaused ? 'flowers-paused' : ''}`}>
     <DraftSwitcher selected={draft} onSelect={resetInvitation} onReplay={() => resetInvitation(draft)} opening={opening} flowersPaused={flowersPaused} onToggleFlowers={() => setFlowersPaused(paused => !paused)} musicControl={<InvitationMusic ref={music}/>}/>
+    {viewed && <button className="slow-scroll-control" aria-pressed={autoScrolling} onClick={() => setAutoScrolling(value => !value)}>{autoScrolling ? 'Pause scrolling' : 'Slow scroll'}</button>}
     <FlowerSprinkles key={`flowers-${coverVersion}`} opening={opening}/>
     <a href="#invitation" className="skip-link">Skip to invitation</a>
     <main id="invitation">
-      <DraftCover key={`${draft}-${coverVersion}`} draft={draft} opening={opening} opened={opened} onOpen={openInvitation} onView={() => celebration.current?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'})}/>
+      <DraftCover key={`${draft}-${coverVersion}`} draft={draft} opening={opening} opened={opened} onOpen={openInvitation} onView={viewCelebration}/>
       <div id="celebration" className="celebration" ref={celebration} tabIndex={-1} hidden={!opened}>{opened ? <>
         <nav className="invitation-nav" aria-label="Invitation sections"><a className="nav-monogram" href="#invitation" aria-label="Back to invitation">Y &amp; G</a><div><a href="#our-day">Our day</a><a href="#venue">The venue</a><CalendarLink className="nav-calendar">Save the date</CalendarLink></div></nav>
         <section className="welcome section-spacing" aria-labelledby="welcome-heading" data-reveal>
@@ -153,7 +162,7 @@ export function App() {
         </section>
         <section id="venue" className="venue section-spacing" aria-labelledby="venue-heading" data-reveal>
           <div className="venue-art" style={{backgroundImage:`url(${asset(`drafts/${draft === 'crimson' ? 'royal' : draft}-background.webp`)})`}} role="img" aria-label="Illustrated Rajasthan palace and gardens" />
-          <div className="venue-content"><p className="eyebrow">Wedding venue · 04 December</p><h2 id="venue-heading">See you in <em>Alwar.</em></h2><MapPinIcon size={30} weight="thin" aria-hidden="true" /><h3>Infinity Resorts &amp; Farms</h3><p>Alwar, Rajasthan</p><a className="button button-green" href={wedding.mapsUrl} target="_blank" rel="noopener noreferrer">Find the venue<ArrowUpRightIcon size={18} aria-hidden="true" /></a></div>
+          <div className="venue-content"><p className="eyebrow">Wedding venue · 04 December</p><h2 id="venue-heading">See you in <em>Alwar.</em></h2><MapPinIcon size={30} weight="thin" aria-hidden="true" /><h3>Infinity Hotels &amp; Resorts</h3><p>Alwar, Rajasthan</p><a className="button button-green" href={wedding.mapsUrl} target="_blank" rel="noopener noreferrer">Find the venue<ArrowUpRightIcon size={18} aria-hidden="true" /></a></div>
         </section>
         <footer className="invitation-footer section-spacing"><HeartIcon size={26} weight="thin" aria-hidden="true"/><p className="eyebrow">The beginning of our forever</p><p className="footer-names">Yogita <em>&amp;</em> Garvit</p><p>We can’t wait to celebrate with you.</p><button className="text-link share-button" onClick={copyInvitation}>{copied ? <CheckIcon size={17}/> : <CopyIcon size={17}/>}<span aria-live="polite">{copied ? 'Invitation link copied' : 'Copy invitation link'}</span></button><p className="footer-date">04.12.2026</p><a className="back-to-top" href="#invitation">Back to invitation<ArrowDownIcon size={14}/></a></footer>
       </> : null}</div>
