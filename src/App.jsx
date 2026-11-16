@@ -102,7 +102,7 @@ export function App() {
     if (opening) return;
     music.current?.start();
     setOpening(true);
-    openTimer.current = setTimeout(() => { setOpened(true); setOpening(false); }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1650);
+    openTimer.current = setTimeout(() => { setOpened(true); setOpening(false); setViewed(true); setAutoScrolling(!window.matchMedia('(prefers-reduced-motion: reduce)').matches); }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1650);
   }
   function viewCelebration() {
     setViewed(true);
