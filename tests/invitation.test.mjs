@@ -15,7 +15,7 @@ test('welcome is at the wedding venue; Haldi has no invented location', () => {
   const calendar = calendarFile(events);
   const haldi = calendarFile(events.filter(event => event.id === 'haldi'));
   assert.ok(!haldi.includes('LOCATION:'));
-  assert.equal((calendar.match(/LOCATION:Infinity Resorts & Farms\\, Alwar\\, Rajasthan/g) || []).length, 4);
+  assert.equal((calendar.match(/LOCATION:Infinity Hotels & Resorts\\, Alwar\\, Rajasthan/g) || []).length, 4);
 });
 
 test('descriptions preserve each event date and do not invent pre-wedding locations', () => {
@@ -32,10 +32,10 @@ test('calendar downloads use CRLF and valid UTF-8 line folding', () => {
   for (const line of calendar.split('\r\n')) assert.ok(Buffer.byteLength(line, 'utf8') <= 75);
   assert.ok(!calendar.replace(/\r\n/g, '').includes('\n'));
   const unfolded = calendar.replace(/\r\n /g, '');
-  assert.ok(unfolded.includes('SUMMARY:Yogita & Garvit — Welcome of Baarat'));
+  assert.ok(unfolded.includes('SUMMARY:Yogita & Garvit — Welcome of Baraat'));
 });
 
-test('bride schedule excludes Chaak-Bhaat and welcomes the arriving Baarat', () => {
+test('bride schedule excludes Chaak-Bhaat and welcomes the arriving Baraat', () => {
   assert.deepEqual(eventDays.map(day => [day.date, day.events.length]), [['2026-12-03',1], ['2026-12-04',4]]);
   assert.ok(!events.some(event => event.id === 'chaak-bhaat' || event.id === 'baarat'));
   assert.equal(eventFilms['welcome-baarat'].cast, 'bride-family-and-groom');
