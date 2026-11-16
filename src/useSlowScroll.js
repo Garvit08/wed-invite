@@ -13,7 +13,7 @@ export function useSlowScroll(active, stop) {
       if (now < readyAt) { frame = requestAnimationFrame(tick); return; }
       if (document.hidden) { previous = undefined; frame = requestAnimationFrame(tick); return; }
       position ??= window.scrollY;
-      if (previous !== undefined) position += Math.min(now - previous, 50) * .024;
+      if (previous !== undefined) position += Math.min(now - previous, 50) * .036;
       previous = now;
       const end = document.documentElement.scrollHeight - window.innerHeight;
       window.scrollTo({top: Math.min(position, end), behavior: 'instant'});

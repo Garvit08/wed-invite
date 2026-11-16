@@ -336,3 +336,11 @@ html {scroll-padding-top:0}
 .draft-app .section-heading>.eyebrow{font-size:13px;line-height:1.6;font-weight:400;letter-spacing:1.5px}
 
 .slow-scroll-control{position:fixed;bottom:20px;right:20px;z-index:80;padding:11px 17px;border:1px solid #d9b877;border-radius:24px;background:#330b14ed;color:#fff1d5;font:12px/1.5 'Manrope',sans-serif;box-shadow:0 3px 16px #0003;cursor:pointer;min-height:44px}.slow-scroll-control:focus-visible{outline:2px solid #fff;outline-offset:4px}
+
+/* Clear next step after the envelope opens. */
+.draft-revealed .draft-view-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#f0d49b;color:#3b0d17;border:1px solid #fff0c8;border-radius:30px;padding:13px 20px;min-height:48px;box-shadow:0 4px 18px #330b1430;font:600 clamp(12px,3.5cqw,16px)/1.4 'Manrope',sans-serif;text-decoration:none;animation:celebration-invite-glow 2.6s ease-in-out infinite}
+.draft-revealed .draft-view-button:hover{background:#ffe6b1;box-shadow:0 5px 22px #330b1450}
+.draft-revealed .draft-view-button:focus-visible{outline:3px solid #722331;outline-offset:4px}
+.draft-revealed::after{content:'Tap to explore our wedding';display:block;margin-top:12px;color:#633d2a;font:500 clamp(10px,2.8cqw,12px)/1.5 'Manrope',sans-serif;letter-spacing:.3px}
+@keyframes celebration-invite-glow{0%,100%{box-shadow:0 4px 18px #330b1426}50%{box-shadow:0 4px 22px #a77b3b65}}
+@media(prefers-reduced-motion:reduce){.draft-revealed .draft-view-button{animation:none}}
