@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSlowScroll } from './useSlowScroll.js';
 import { ArrowDownIcon } from '@phosphor-icons/react/dist/csr/ArrowDown';
 import { ArrowUpRightIcon } from '@phosphor-icons/react/dist/csr/ArrowUpRight';
 import { CalendarBlankIcon } from '@phosphor-icons/react/dist/csr/CalendarBlank';
@@ -41,6 +42,10 @@ export function App() {
   const [flowersPaused, setFlowersPaused] = useState(false);
   const selectedDraftRef = useRef(draft);
   const [opened, setOpened] = useState(false);
+  const [viewed, setViewed] = useState(false);
+  const [autoScrolling, setAutoScrolling] = useState(false);
+  const stopAutoScroll = useCallback(() => setAutoScrolling(false), []);
+  useSlowScroll(autoScrolling, stopAutoScroll);
   const [opening, setOpening] = useState(false);
   const [copied, setCopied] = useState(false);
   const celebration = useRef(null);
@@ -55,6 +60,8 @@ export function App() {
     clearTimeout(openTimer.current);
     setOpening(false);
     setOpened(false);
+    setViewed(false);
+    setAutoScrolling(false);
     setCopied(false);
     setDraft(nextDraft);
     selectedDraftRef.current = nextDraft;
@@ -98,6 +105,8 @@ export function App() {
     openTimer.current = setTimeout(() => { setOpened(true); setOpening(false); }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1650);
   }
   function viewCelebration() {
+    setViewed(true);
+    setAutoScrolling(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     celebration.current?.focus({preventScroll: true});
     celebration.current?.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
   }
@@ -124,6 +133,7 @@ export function App() {
 
   return <div className={`draft-app theme-${draft} ${flowersPaused ? 'flowers-paused' : ''}`}>
     <DraftSwitcher selected={draft} onSelect={resetInvitation} onReplay={() => resetInvitation(draft)} opening={opening} flowersPaused={flowersPaused} onToggleFlowers={() => setFlowersPaused(paused => !paused)} musicControl={<InvitationMusic ref={music}/>}/>
+    {viewed && <button className="slow-scroll-control" aria-pressed={autoScrolling} onClick={() => setAutoScrolling(value => !value)}>{autoScrolling ? 'Pause scrolling' : 'Slow scroll'}</button>}
     <FlowerSprinkles key={`flowers-${coverVersion}`} opening={opening}/>
     <a href="#invitation" className="skip-link">Skip to invitation</a>
     <main id="invitation">
